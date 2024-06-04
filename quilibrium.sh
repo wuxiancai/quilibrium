@@ -1,10 +1,10 @@
 #!/bin/bash
-#增加网络贷款
+echo "增加网络带宽"
 sudo echo \
 "net.core.rmem_max=600000000 
 net.core.wmem_max=600000000" >> /etc/sysctl.conf
 sudo sysctl -p
-#安装docker
+echo "安装docker"
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
@@ -12,8 +12,8 @@ sudo apt-cache policy docker-ce
 sudo apt install docker-ce
 #克隆源代码
 mkdir quili
-echo \
-"services:
+cat>docker-compose.yml<<EOF
+services:
   watchtower:
     image: containrrr/watchtower
     restart: always
@@ -56,9 +56,12 @@ echo \
       driver: "json-file"
       options:
         max-file: "5"
-        max-size: 2048m" >> /quili/docker-compose.yml
+        max-size: 2048m
+EOF
+echo "启动节点"
 docker compose up -d
 #开启端口
+echo "开启端口"
 ufw allow 22
 ufw allow 443
 ufw allow 8337
