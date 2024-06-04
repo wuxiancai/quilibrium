@@ -10,7 +10,7 @@ sudo apt update
 sudo apt-cache policy docker-ce
 sudo apt install docker-ce
 #克隆源代码
-cat>docker-compose.yml<<EOF
+sudo cat>docker-compose.yml<<EOF
 services:
   watchtower:
     image: containrrr/watchtower
@@ -57,12 +57,12 @@ services:
         max-size: 2048m
 EOF
 echo "启动节点"
-docker compose up -d
+sudo docker compose up -d
 #开启端口
-echo "开启端口"
-ufw allow 22
-ufw allow 443
-ufw allow 8337
-ufw allow 8338
+sudo echo "开启端口"
+sudo ufw allow 22
+sudo ufw allow 443
+sudo ufw allow 8337
+sudo ufw allow 8338
 
-docker ps
+sudo docker ps
