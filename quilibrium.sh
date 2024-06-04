@@ -1,7 +1,9 @@
 #!/bin/bash
 echo "增加网络带宽"
-sudo echo "net.core.rmem_max=600000000" >> /etc/sysctl.conf
-sudo echo "net.core.wmem_max=600000000" >> /etc/sysctl.conf
+sudo cat>>/etc/sysctl.conf<<EOF
+net.core.rmem_max=600000000
+net.core.wmem_max=600000000
+EOF
 sudo sysctl -p
 echo "安装docker"
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
