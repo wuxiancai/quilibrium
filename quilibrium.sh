@@ -55,7 +55,7 @@ echo \
       driver: "json-file"
       options:
         max-file: "5"
-        max-size: 2048m" >> /quili
+        max-size: 2048m" >> /quili/docker-compose.yml
 docker compose up -d
 #开启端口
 ufw allow 22
