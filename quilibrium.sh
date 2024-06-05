@@ -12,7 +12,7 @@ sudo apt update
 sudo apt-cache policy docker-ce
 sudo apt install docker-ce
 #克隆源代码
-sudo cat> ~/docker-compose.yml <<EOF
+sudo cat>~/docker-compose.yml<<EOF
 services:
   watchtower:
     image: containrrr/watchtower
