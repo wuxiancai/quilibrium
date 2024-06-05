@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "增加网络带宽"
-sudo cat>>/etc/sysctl.conf<<EOF
+sudo bash -c 'cat >> /etc/sysctl.conf <<EOF
 net.core.rmem_max=600000000
 net.core.wmem_max=600000000
-EOF
+EOF'
 sudo sysctl -p
 echo "安装docker"
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -12,7 +12,7 @@ sudo apt update
 sudo apt-cache policy docker-ce
 sudo apt install docker-ce
 #克隆源代码
-sudo cat>~/docker-compose.yml<<EOF
+sudo cat > ~/docker-compose.yml <<EOF
 services:
   watchtower:
     image: containrrr/watchtower
