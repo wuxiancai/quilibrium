@@ -5,14 +5,16 @@ net.core.rmem_max=600000000
 net.core.wmem_max=600000000
 EOF'
 sudo sysctl -p
+
 echo "安装docker"
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 sudo apt-cache policy docker-ce
-sudo apt install docker-ce
-#克隆源代码
-sudo cat>~/docker-compose.yml<<EOF
+sudo apt install -y docker-ce
+
+# 克隆源代码
+cat > ~/docker-compose.yml <<EOF
 services:
   watchtower:
     image: containrrr/watchtower
@@ -58,10 +60,12 @@ services:
         max-file: "5"
         max-size: 2048m
 EOF
+
 echo "启动节点"
 sudo docker compose up -d
-#开启端口
-sudo echo "开启端口"
+
+# 开启端口
+echo "开启端口"
 sudo ufw allow 22
 sudo ufw allow 443
 sudo ufw allow 8337
