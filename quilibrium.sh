@@ -1,4 +1,11 @@
 #!/bin/bash
+# 增加swap空间
+sudo mkdir /swap
+sudo fallocate -l 24G /swap/swapfile
+sudo chmod 600 /swap/swapfile
+sudo mkswap /swap/swapfile
+sudo swapon /swap/swapfile
+echo '/swap/swapfile swap swap defaults 0 0' >> /etc/fstab
 echo "增加网络带宽"
 sudo bash -c 'cat >> /etc/sysctl.conf <<EOF
 net.core.rmem_max=600000000
